@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+
+std::vector<std::vector<int>> splitList(const std::vector<int>& lst, int numParts) {
+    std::vector<std::vector<int>> result;
+    int size = lst.size();
+    int splitSize = size / numParts;
+    int remainder = size % numParts;
+
+    int start = 0;
+    for (int i = 0; i < numParts; i++) {
+        int end = start + splitSize + (i < remainder ? 1 : 0);
+        result.push_back(std::vector<int>(lst.begin() + start, lst.begin() + end));
+        start = end;
+    }
+
+    return result;
+}
+
+// Пример использования
+int main() {
+    std::vector<int> myVec = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int parts = 3;
+
+    std::vector<std::vector<int>> splitResult = splitList(myVec, parts);
+
+    std::cout << "Исходный список: ";
+    for (int num : myVec) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    for (int i = 0; i < splitResult.size(); i++) {
+        std::cout << "Часть " << i + 1 << ": ";
+        for (int num : splitResult[i]) {
+            std::cout << num << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    return 0;
+}
